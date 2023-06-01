@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Indian Map</title>
+</head>
+<body style="text-align: center;">
+    <input type="text"  id="search" placeholder="Search for a place">
+<div id="map"></div>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  height: 100vh;
+}
+
+#search {
+  width: 200px;
+  margin: 10px 0;
+}
+</style>
+<script>
+        mapboxgl.accessToken = "pk.eyJ1IjoiY2hpbnU5MDAiLCJhIjoiY2xpY3N1cTM5MDR6azNwcGdsNnd3cXQyMCJ9.90ChZSfz_fc3paGzfABncA"
+
+var map = new mapboxgl.Map({
+  container: "map",
+  style: "mapbox://styles/mapbox/streets-v11",
+  center: [77.217300, 28.613900],
+  zoom: 4
+});
+
+var searchInput = document.getElementById('search');
+
+// When the user types in the search bar,
+// search for the place name in the list of 5 places
+searchInput.addEventListener('input', function() {
+  var placeName = this.value;
+  console.log(placeName)
+
+  // Loop through the list of 5 places
+  for (var i = 0; i < 5; i++) {
+    // If the place name matches,
+    console.log(placeName,"agaghah");
+    console.log(places[i],"ahah");
+    if (placeName === places[i].name) {
+        console.log(places[i],"ahah");
+      // Highlight the place on the map
+      map.setCenter([places[i].lat, places[i].lng]);
+      map.setZoom(5);
+
+  
+      var keyframe = {
+        from: {
+          opacity: 0
+        },
+        to: {
+          opacity: 1
+        }
+      };
+
+      var animation = new mapboxgl.animation.Timeline([
+        new mapboxgl.animation.Keyframe(0, keyframe),
+        new mapboxgl.animation.Keyframe(1, keyframe)
+      ]);
+
+      animation.play();
+    }
+  }
+});
+
+// The list of 5 places
+var places = [
+  {
+    name: 'New Delhi',
+    lat: 28.679079,
+    lng: 77.069710
+  },
+  {
+    name: 'Mumbai',
+    lat: 19.075979,
+    lng: 72.877655
+  },
+  {
+    name: 'Chennai',
+    lat: 13.082702,
+    lng: 80.270783
+  },
+  {
+    name: 'Kolkata',
+    lat: 22.572518,
+    lng: 88.363892
+  },
+  {
+    name: 'Bangalore',
+    lat: 12.971599,
+    lng: 77.594975
+  }
+];
+</script>
+</body>
+</html>
